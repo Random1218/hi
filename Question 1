@@ -1,0 +1,37 @@
+//lastNonMemberDownloadTime = LNMDT, lastMemberDownloadTime = LMDT, memberDownloadCount = MDC
+
+$LNMDT = 0;
+$LMDT = 0;
+$MDC = 0;
+
+function checkDownload($memberType) {
+    global $LNMDT, $LMDT, $MDC;
+    $currentTime = time();
+    if ($memberType == 'nonmember') {
+        if ($currentTime - $LNMDT < 5) {
+            return "Too many downloads";
+        } else {
+            $LNMDT = $currentTime;
+            return "Your download is starting...";
+        }
+    } elseif ($memberType == 'member') {
+        if ($currentTime - $LMDT < 5 && $MDC >= 2) {
+            return "Too many downloads";
+        } else {
+            $LMDT = $currentTime;
+            $MDC++;
+            return "Your download is starting...";
+        }
+    } else {
+        return "Invalid member type";
+    }
+}
+
+echo "Non-members:\n";
+echo "checkDownload('nonmember') returns: " . checkDownload('nonmember') . "\n";
+echo "checkDownload('nonmember') returns: " . checkDownload('nonmember') . "\n";
+
+echo "\nMembers:\n";
+echo "checkDownload('member') returns: " . checkDownload('member') . "\n";
+echo "checkDownload('member') returns: " . checkDownload('member') . "\n";
+echo "checkDownload('member') returns: " . checkDownload('member') . "\n";
