@@ -1,0 +1,16 @@
+function daysBetweenDatesAndOddEven($startDate, $endDate) {
+    $startTimestamp = strtotime($startDate);
+    $endTimestamp = strtotime($endDate);
+    
+    $difference = $endTimestamp - $startTimestamp;
+    
+    $daysDifference = floor($difference / (60 * 60 * 24));
+    
+    $oddEven = ($daysDifference % 2 == 0) ? "even" : "odd";
+    
+    return "The number of days between $startDate and $endDate is $daysDifference days, and it is $oddEven.";
+}
+
+$startDate = "2024-03-20";
+$endDate = "2024-03-25";
+echo daysBetweenDatesAndOddEven($startDate, $endDate);
