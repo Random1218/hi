@@ -1,0 +1,32 @@
+function roll_item($vip_rank) {
+    $item_tier_rarity = [1, 2, 3, 4, 5];
+    $vip_levels = count($vip_rank);
+    $item_distribution = [];
+
+    for ($i = 1; $i <= $vip_levels; $i++) {
+        $item_distribution[$vip_rank[$i - 1]] = array_fill(0, $i, 1);
+    }
+    foreach ($item_distribution as $vip => &$tiers) {
+        $lastTier = end($tiers);
+        $tiers = array_merge($tiers, array_map(function($tier) {
+            return $tier + 1;
+        }, [$lastTier]));
+    }
+    return $item_distribution;
+}
+
+function print_item_distribution($vip_rank, $iterations = 100) {
+    echo "Item distribution:\n";
+    foreach ($vip_rank as $rank) {
+        $itemsCount = array_fill_keys([1, 2, 3, 4, 5], 0);
+        for ($i = 0; $i < $iterations; $i++) {
+            $item = roll_item($vip_rank);
+            $itemsCount[array_rand($item[$rank])] += 1;
+        }
+        echo "$rank player have higher chance to get an item in " . implode(",", array_keys($itemsCount)) . " rarity\n";
+    }
+}
+
+$vip_rank = ['v1', 'v2', 'v3', 'v4', 'v5'];
+
+print_item_distribution($vip_rank);
