@@ -1,0 +1,14 @@
+function checkDiscount($purchaseValue) {
+    if ($purchaseValue >= 500) {
+        $discount = 0.10 * $purchaseValue;
+        return "Purchase Value is $purchaseValue, discount is 10%.";
+    } elseif ($purchaseValue >= 100 && $purchaseValue < 500) {
+        $discount = 0.05 * $purchaseValue;
+        return "Purchase Value is $purchaseValue, discount is 5%.";
+    } else {
+        return "Purchase Value is $purchaseValue, there are no discounts.";
+    }
+}
+
+echo checkDiscount(300). "\n";
+echo checkDiscount(80) . "\n";
